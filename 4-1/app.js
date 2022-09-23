@@ -2,6 +2,9 @@ async function draw() {
   // Data
   let dataset = await d3.json('data.json')
 
+  const xAccessor = (d) => d.currently.humidity
+  const yAccessor = (d) => d.currently.apparentTemperature
+
   // Dimensions
   const dimensions = {
     width: 800,
@@ -27,9 +30,14 @@ async function draw() {
       `translate(${dimensions.margin.left}, ${dimensions.margin.top})`
       )
   
-  // Draw Circle
-  ctr.append('circle')
-    .attr('r', 15)
+  // Draw Circles
+  ctr.selectAll('circle')
+      .data(dataset)
+      .join('circle')
+      .attr('cx', xAccessor)
+      .attr('cy', yAccessor)
+      .attr('r', 5)
+      .attr('fill', 'red')
 }
 
 draw()
