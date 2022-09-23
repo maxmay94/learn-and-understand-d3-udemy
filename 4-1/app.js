@@ -37,11 +37,14 @@ async function draw() {
   //Scales
   const xScale = d3.scaleLinear()
       .domain(d3.extent(dataset, xAccessor))
-      .range([0, dimensions.ctrWidth])
+      .rangeRound([0, dimensions.ctrWidth])
+      .clamp(true)
 
   const yScale = d3.scaleLinear()
       .domain(d3.extent(dataset, yAccessor))
-      .range([0, dimensions.ctrHeight])
+      .rangeRound([0, dimensions.ctrHeight])
+      .nice()
+      .clamp(true)
   
   // Draw Circles
   ctr.selectAll('circle')
