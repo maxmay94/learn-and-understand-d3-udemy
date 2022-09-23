@@ -42,7 +42,7 @@ async function draw() {
 
   const yScale = d3.scaleLinear()
     .domain(d3.extent(dataset, yAccessor))
-    .rangeRound([0, dimensions.ctrHeight])
+    .rangeRound([dimensions.ctrHeight, 0])
     .nice()
     .clamp(true)
   
@@ -54,6 +54,7 @@ async function draw() {
     .attr('cy', d => yScale(yAccessor(d)))
     .attr('r', 5)
     .attr('fill', 'red')
+    .attr('data-temp', yAccessor)
 
   // Axes
   const xAxis = d3.axisBottom(xScale)
