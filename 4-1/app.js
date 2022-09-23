@@ -17,6 +17,10 @@ async function draw() {
     }
   }
 
+  dimensions.ctrWidth = dimensions.width - dimensions.margin.left - dimensions.margin.right
+
+  dimensions.ctrHeight = dimensions.width - dimensions.margin.top - dimensions.margin.bottom
+
   // Draw Image
   const svg = d3.select('#chart')
     .append('svg')
@@ -30,12 +34,21 @@ async function draw() {
       `translate(${dimensions.margin.left}, ${dimensions.margin.top})`
       )
   
+  //Scales
+  const xScale = d3.scaleLinear()
+      .domain(d3.extent(dataset, xAccessor))
+      .range([0, dimensions.ctrWidth])
+
+  const yScale = d3.scaleLinear()
+      .domain(d3.extent(dataset, yAccessor))
+      .range([0, dimensions.ctrHeight])
+  
   // Draw Circles
   ctr.selectAll('circle')
       .data(dataset)
       .join('circle')
-      .attr('cx', xAccessor)
-      .attr('cy', yAccessor)
+      .attr('cx', d => xScale(xAccessor(d)))
+      .attr('cy', d => yScale(yAccessor(d)))
       .attr('r', 5)
       .attr('fill', 'red')
 }
