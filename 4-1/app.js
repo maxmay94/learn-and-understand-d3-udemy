@@ -54,6 +54,14 @@ async function draw() {
       .attr('cy', d => yScale(yAccessor(d)))
       .attr('r', 5)
       .attr('fill', 'red')
+
+  // Axes
+  const xAxis = d3.axisBottom(xScale)
+  const yAxis = d3.axisLeft(yScale)
+
+  ctr.append('g')
+      .call(xAxis)
+      .style('transform', `translateY(${dimensions.ctrHeight}px)`)
 }
 
 draw()
