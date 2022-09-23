@@ -1,5 +1,5 @@
-const pBrowser = document.querySelector('p')
-const pD3 = d3.select('p')
+// const pBrowser = document.querySelector('p')
+const el = d3.select('body').append('p').attr('class', 'foo').text('Hello World')
 
-console.log(pBrowser)
-console.log(pD3)
+// console.log(pBrowser)
+console.log(el)
