@@ -4,6 +4,6 @@ const el = d3.select('ul')
   .selectAll('li')
   .data(data)
   .join('li')
-  .text('Hello')
+  .text(d => d)
 
 console.log(el)
