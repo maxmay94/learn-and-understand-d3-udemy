@@ -61,7 +61,6 @@ async function draw() {
       .ticks(5)
       .tickFormat((d) => d * 100 + '%')
       // .tickValues([0.4, 0.5, 0.8, 1])
-
   
   const xAxisGroup = ctr.append('g')
     .call(xAxis)
