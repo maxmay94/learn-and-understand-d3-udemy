@@ -75,6 +75,17 @@ async function draw() {
     .style('transform', `translateY(${dimensions.ctrHeight}px)`)
   
   xAxisGroup.call(xAxis)
+
+  function histogram(metric) {
+    
+  }
+  
+  // Event Listener
+  d3.select('#metric').on('change', function(e) {
+    e.preventDefault()
+
+    histogram(this.value)
+  })
 }
 
 draw()
