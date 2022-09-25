@@ -68,9 +68,10 @@ async function draw() {
           .attr('height', 0)
           .attr('x', d => xScale(d.x0))
           .attr('y', dimensions.ctrHeight)
-          .attr('fill', '#01c5b4'),
+          .attr('fill', '#b8de6f'),
         (update) => update,
-        (exit) => exit.transition(exitTransition)
+        (exit) => exit.attr('fill', '#f39233')
+          .transition(exitTransition)
           .attr('y', dimensions.ctrHeight)
           .attr('height', 0)
           .remove()
@@ -84,8 +85,17 @@ async function draw() {
 
     labelsGroup.selectAll('text')
       .data(newDataset)
-      .join('text')
-      .transition()
+      .join(
+        (enter) => enter.append('text')
+          .attr('x', d => xScale(d.x0) + (xScale(d.x1) - xScale(d.x0)) / 2)
+          .attr('y', dimensions.ctrHeight)
+          .text(yAccessor),
+        (update) => update,
+        (exit) => exit.transition(exitTransition)
+          .attr('y', dimensions.ctrHeight)
+          .remove()
+      )
+      .transition(updateTransition)
       .attr('x', d => xScale(d.x0) + (xScale(d.x1) - xScale(d.x0)) / 2)
       .attr('y', d => yScale(yAccessor(d)) - 10)
       .text(yAccessor)
@@ -93,7 +103,8 @@ async function draw() {
     // Draw Axis
     const xAxis = d3.axisBottom(xScale)
     
-    xAxisGroup.transition().call(xAxis)
+    xAxisGroup.transition()
+      .call(xAxis)
   }
   
   // Event Listener
