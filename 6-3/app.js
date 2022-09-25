@@ -56,6 +56,9 @@ async function draw() {
       .range([dimensions.ctrHeight, 0])
       .nice()
 
+    const exitTransition = d3.transition().duration(500)
+    const updateTransition = exitTransition.transition().duration(500)
+
     // Draw Bars
     ctr.selectAll('rect')
       .data(newDataset)
@@ -65,10 +68,14 @@ async function draw() {
           .attr('height', 0)
           .attr('x', d => xScale(d.x0))
           .attr('y', dimensions.ctrHeight)
-          .attr('fill', '#01c5b4')
+          .attr('fill', '#01c5b4'),
+        (update) => update,
+        (exit) => exit.transition(exitTransition)
+          .attr('y', dimensions.ctrHeight)
+          .attr('height', 0)
+          .remove()
       )
-      .transition()
-      .duration(3000)
+      .transition(updateTransition)
       .attr('width', d => d3.max([0, xScale(d.x1) - xScale(d.x0)]) - padding)
       .attr('height', d => dimensions.ctrHeight - yScale(yAccessor(d)))
       .attr('x', d => xScale(d.x0))
