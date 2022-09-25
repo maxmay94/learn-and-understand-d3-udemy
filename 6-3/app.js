@@ -32,14 +32,14 @@ async function draw() {
       .range([0, dimensions.ctrWidth])
       .nice()
   
-      // Draw Bars
-      ctr.selectAll('rect')
-        .data(dataset)
-        .join('rect')
-        .attr('width', 5)
-        .attr('height', 100)
-        .attr('x', d => xScale(xAccessor(d)))
-        .attr('y', 0)
+  // Draw Bars
+  ctr.selectAll('rect')
+    .data(dataset)
+    .join('rect')
+    .attr('width', 5)
+    .attr('height', 100)
+    .attr('x', d => xScale(xAccessor(d)))
+    .attr('y', 0)
 }
 
 draw()
