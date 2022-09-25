@@ -64,6 +64,19 @@ async function draw() {
       tooltip.style('display', 'block')
         .style('top', yScale(yAccessor(datum)) - 25 + 'px')
         .style('left', xScale(xAccessor(datum)) + 'px')
+
+      const formatter = d3.format('.2f')
+      const dateFormatter = d3.timeFormat('%B %-d, %Y')
+
+      tooltip.select('.metric-humidity span')
+        .text(formatter(xAccessor(datum)))
+
+      tooltip.select('.metric-temp span')
+        .text(formatter(yAccessor(datum)))
+
+      tooltip.select('.metric-date')
+        .text(dateFormatter(datum.currently.time * 1000))
+      
     })
     .on('mouseleave', function(event) {
       d3.select(this)
