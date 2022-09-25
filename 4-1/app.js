@@ -107,9 +107,13 @@ async function draw() {
     .attr('fill', 'transparent')
     .attr('d', (d, i) => voronoi.renderCell(i))
     .on('mouseenter', function(event, datum) {
-      d3.select(this)
+      ctr.append('circle')
+      .classed('dot-hovered', true)
         .attr('fill', '#120078')
         .attr('r', 8)
+        .attr('cx', d => xScale(xAccessor(datum)))
+        .attr('cy', d => yScale(yAccessor(datum)))
+        .style('pointer-event', 'none')
       
       tooltip.style('display', 'block')
         .style('top', yScale(yAccessor(datum)) - 25 + 'px')
@@ -129,9 +133,7 @@ async function draw() {
       
     })
     .on('mouseleave', function(event) {
-      d3.select(this)
-        .attr('fill', 'red')
-        .attr('r', 5)
+      ctr.select('.dot-hovered').remove()
       
       tooltip.style('display', 'none')
     })
