@@ -73,7 +73,9 @@ async function draw() {
 
   // Axis
   const xAxis = d3.axisBottom(xScale)
+    .tickSizeOuter(0)
   const yAxis = d3.axisLeft(yScale)
+    .ticks(null, 's')
   
   ctr.append('g')
     .attr('transform', `translate(0, ${dimensions.ctrHeight})`)
