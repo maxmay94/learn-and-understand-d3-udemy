@@ -83,9 +83,19 @@ async function draw() {
     .attr('height', dimensions.ctrHeight)
     .style('opacity', 0)
     .on('touchmouse mousemove', function(event) {
-      // event.preventDefault()
       const mousePos = d3.pointer(event, this)
-      console.log(mousePos)
+      const date = xScale.invert(mousePos[0])
+
+      // Custom Bisector - left, center, right
+      const bisector = d3.bisector(xAccessor).left
+      const index = bisector(dataset, date)
+      const stock = dataset[index - 1]
+
+      // Update Image
+      tooltipDot.style('opacity', 1)
+        .attr('cx', xScale(xAccessor(stock)))
+        .attr('cy', yScale(yAccessor(stock)))
+        .raise()
     })
     .on('mouseleave', function(event) {
 
