@@ -8,6 +8,11 @@ body{
   position: relative;
 }
 
+#chart-title{
+  text-align: center;
+  text-decoration: underline;
+}
+
 #tooltip {
   border: 1px solid #ccc;
   position: absolute;

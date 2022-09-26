@@ -96,9 +96,22 @@ async function draw() {
         .attr('cx', xScale(xAccessor(stock)))
         .attr('cy', yScale(yAccessor(stock)))
         .raise()
+      
+      tooltip.style('display', 'block')
+        .style('top', yScale(yAccessor(stock)) - 20 + 'px')
+        .style('left', xScale(xAccessor(stock)) + 'px')
+
+      tooltip.select('.price')
+        .text(`$${yAccessor(stock)}`)
+
+      const dateFormatter = d3.timeFormat('%B %-d, %Y')
+      tooltip.select('.date')
+        .text(`${dateFormatter(xAccessor(stock))}`)
     })
     .on('mouseleave', function(event) {
+      tooltipDot.style('opacity', 0)
 
+      tooltip.style('display', 'none')
     })
 }
 
