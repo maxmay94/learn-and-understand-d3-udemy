@@ -2,8 +2,9 @@ async function draw() {
   // Data
   const dataset = await d3.csv('data.csv')
 
-  const xAccessor = d => d.date
-  const yAccessor = d => d.close
+  const parseDate = d3.timeParse('%Y-%m-%d')
+  const xAccessor = d => parseDate(d.date)
+  const yAccessor = d => parseInt(d.close)
 
   // Dimensions
   let dimensions = {
@@ -32,6 +33,12 @@ async function draw() {
     .domain(d3.extent(dataset, yAccessor))
     .range([dimensions.ctrHeight, 0])
     .nice()
+
+  const xScale = d3.scaleUtc()
+    .domain(d3.extent(dataset, xAccessor))
+    .range([0, dimensions.ctrWidth])
+
+  console.log(xScale(xAccessor(dataset[0])), dataset[0])
 }
 
 draw()
