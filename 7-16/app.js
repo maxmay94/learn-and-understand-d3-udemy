@@ -71,6 +71,17 @@ async function draw() {
     .attr('width', xScale.bandwidth())
     .attr('height', d => yScale(d[0]) - yScale(d[1]))
 
+  // Axis
+  const xAxis = d3.axisBottom(xScale)
+  const yAxis = d3.axisLeft(yScale)
+  
+  ctr.append('g')
+    .attr('transform', `translate(0, ${dimensions.ctrHeight})`)
+    .call(xAxis)
+
+  ctr.append('g')
+    .attr('transform', `translate(${dimensions.margins}, 0)`)
+    .call(yAxis)
 }
 
 draw()
