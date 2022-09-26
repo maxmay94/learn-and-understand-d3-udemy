@@ -1,9 +1,12 @@
 async function draw() {
   // Data
-  const dataset = await d3.csv('data.csv', (d) => {
+  const dataset = await d3.csv('data.csv', (d, index, columns) => {
     d3.autoType(d)
+    d.total = d3.sum(columns, (c) => d[c])
     return d
   })
+
+  dataset.sort((a, b) => b.total - a.total, 0)
 
   // Dimensions
   let dimensions = {
@@ -49,6 +52,9 @@ async function draw() {
   const xScale = d3.scaleBand()
     .domain(dataset.map(state => state.name))
     .range([dimensions.margins, dimensions.ctrWidth])
+    // .paddingInner(0.1)
+    // .paddingOuter(0.1)
+    .padding(0.1)
 
   const colorScale = d3.scaleOrdinal()
     .domain(stackData.map(d => d.key))
