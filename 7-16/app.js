@@ -84,6 +84,13 @@ async function draw() {
   ctr.append('g')
     .attr('transform', `translate(${dimensions.margins}, 0)`)
     .call(yAxis)
+
+  // Chart Title
+  d3.select('#chart-title')
+    .text('Populations Of States By Age Range')
+    .style('font-family', 'sans-serif')
+    .style('text-decoration', 'underline')
+    .style('text-align', 'center')
 }
 
 draw()
